@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" version="-//W3C//DTD HTML 4.01 Transitional//EN">
+<meta charset="UTF-8"/>
+<link rel="stylesheet" href="../public/css/style.css" th:href="@{/css/styles.css}"/>
+<link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}"/>
+<script src="../public/js/jquery-3.2.1.min.js" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script src="../public/js/blog-scripts.js" th:src="@{/js/blog-scripts.js}"></script>
+<meta th:include="this :: head" th:remove="tag"/>
+<head>
+    <title>Users(JavaRush educations)</title>
+    <link rel="stylesheet" href="../public/css/bootstrap.min.css"/>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 48%;
+        }
+
+        table, td, th {
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            text-align: left;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2
+        }
+    </style>
+</head>
+<body>
+<table>
+    <p>Users Data base</p>
+    <tr>
+        <th>Sr. No</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>IsAdmin</th>
+        <th>Data Create</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <tr th:each="user :${listUsers}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.age}"></td>
+        <td th:if="${user.isAdmin()} == true">YES</td>
+        <td th:if="${user.isAdmin()} == false">NO</td>
+        <td th:text="${user.createdDate}"></td>
+        <td><a href="/edit.html" th:href="@{/edit/{id}/(id=${user.id})}">Edit</a></td>
+        <td><a href="/delete.html" th:href="@{/delete/{id}/(id=${user.id})}">Delete</a></td>
+    </tr>
+</table>
+
+
+<form method="post" th:action="@{/create}">
+    <input type="submit" value="Create new User"/>
+</form>
+
+<form action="#" th:action="@{/setFilter}" th:object="${filter}" method="post">
+    <p>Name: <input type="text" th:field="*{name}"/></p>
+    <input type="submit" value="set filter"/>
+</form>
+
+<div class="form-group">
+    <p>Pages </p>
+    <form method="post" th:action="@{/0}">
+        <input type="submit" value="ON START"/>
+    </form>
+    <form method="post" th:action="@{/{currentPage}/(currentPage = ${currentPage}+1)}">
+        <input type="submit" value="NEXT PAGE"/>
+    </form>
+    <form method="post" th:action="@{/{currentPage}/(currentPage = ${currentPage}-1)}">
+        <input type="submit" value='PREV PAGE'/>
+    </form>
+    <form method="post" th:action="@{/{currentPage}/(currentPage = ${lastPage})}">
+        <input type="submit" value="ON FINISH"/>
+    </form>
+</div>
+<script th:src="@{/webjars/jquery/1.11.1/jquery.min.js}"></script>
+
+
+</body>
+
+</html>

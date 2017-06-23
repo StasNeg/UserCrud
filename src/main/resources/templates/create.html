@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create User</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h3>Create forms</h3>
+<form action="#" th:action="@{/saveUser}" th:object="${user}" method="post">
+    <!--<p>Id: <input type="text" th:field="*{id}" readonly = "readonly"/></p>-->
+    <p>Name: <input type="text" th:field="*{name}" required = "required"/></p>
+    <p>Age: <input type="text" th:field="*{age}" required = "required"/></p>
+    <p>IsAdmin:<input type="radio" name="rad" value="true" th:checked="${user.isAdmin()}"/>YES</p>
+    <p>IsAdmin:<input type="radio" name="rad" value="false" th:checked="${user.isAdmin()}==false"/>NO</p>
+    <p><input type="submit" value="Submit"/></p>
+</form>
+</body>
+</html>
