@@ -87,10 +87,11 @@ public class User implements Serializable {
 
         User user = (User) o;
 
-        if (age != user.age) return false;
-        if (isAdmin != user.isAdmin) return false;
         if (id != user.id) return false;
-        return name.equals(user.name);
+        if (age != user.age) return false;
+        if (!name.equals(user.name)) return false;
+        if (!isAdmin.equals(user.isAdmin)) return false;
+        return createdDate.equals(user.createdDate);
     }
 
 }

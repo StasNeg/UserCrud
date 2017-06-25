@@ -6,13 +6,13 @@
 </head>
 <body>
 <h3>Edit forms</h3>
-<form action="#" th:action="@{/saveUser}" th:object="${user}" method="post">
-    <p>Id: <input type="text" th:field="*{id}" readonly="readonly"/></p>
-    <p>Name: <input type="text" th:field="*{name}"/></p>
-    <p>Age: <input type="text" th:field="*{age}"/></p>
-    <p>Date: <input type="date" th:field="*{createdDate}" readonly="readonly"/></p>
-    <p>IsAdmin:<input type="radio" name="rad" value="true" th:checked="${user.isAdmin()}"/>YES</p>
-    <p>IsAdmin:<input type="radio" name="rad" value="false" th:checked="${user.isAdmin()}==false"/>NO</p>
+<form action="#" th:action="@{/saveUser}"  method="post">
+    <p>Id: <input type="text" th:field="${user.id}" readonly="readonly"/></p>
+    <p>Name: <input type="text" th:field="${user.name}"/></p>
+    <p>Age: <input type="text" th:field="${user.age}"/></p>
+    <p>Date: <input type="date" th:field="${user.createdDate}" readonly="readonly"/></p>
+    <p>IsAdmin:<input type="radio" th:field="${isAdmin.isAdmin}" value="yes" th:checked="${user.isAdmin()}"/>YES</p>
+    <p>IsAdmin:<input type="radio" th:field="${isAdmin.isAdmin}" value="no" th:checked="${user.isAdmin()}==false"/>NO</p>
     <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
 </form>
 </body>

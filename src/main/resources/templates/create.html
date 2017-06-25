@@ -6,12 +6,12 @@
 </head>
 <body>
 <h3>Create forms</h3>
-<form action="#" th:action="@{/saveUser}" th:object="${user}" method="post">
+<form action="#" th:action="@{/saveUser}" method="post">
     <!--<p>Id: <input type="text" th:field="*{id}" readonly = "readonly"/></p>-->
-    <p>Name: <input type="text" th:field="*{name}" required = "required"/></p>
-    <p>Age: <input type="text" th:field="*{age}" required = "required"/></p>
-    <p>IsAdmin:<input type="radio" name="rad" value="true" th:checked="${user.isAdmin()}"/>YES</p>
-    <p>IsAdmin:<input type="radio" name="rad" value="false" th:checked="${user.isAdmin()}==false"/>NO</p>
+    <p>Name: <input type="text" th:field="${user.name}" required = "required"/></p>
+    <p>Age: <input type="text" th:field="${user.age}" required = "required"/></p>
+    <p>IsAdmin:<input type="radio" th:field="${isAdmin.isAdmin}" value="yes" th:checked="${user.isAdmin()}"/>YES</p>
+    <p>IsAdmin:<input type="radio" th:field="${isAdmin.isAdmin}" value="no" th:checked="${user.isAdmin()}==false"/>NO</p>
     <p><input type="submit" value="Submit"/></p>
 </form>
 </body>

@@ -68,7 +68,8 @@ public class UserController {
     public String view(@PathVariable("id") int id, Model model) {
         User user = userService.findById(id);
         model.addAttribute("user", user);
-        return "/edit";
+        model.addAttribute("isAdmin", new isAdmin());
+        return "edit";
     }
 
     @RequestMapping("/delete/{id}")
@@ -78,23 +79,44 @@ public class UserController {
     }
 
     @RequestMapping("/saveUser")
-    public String saveUser(@ModelAttribute User user) {
+    public String saveUser(@ModelAttribute(value = "user") User user, @ModelAttribute(value = "isAdmin") isAdmin admin) {
+        System.out.println(admin.getIsAdmin());
+        if(admin.getIsAdmin().equalsIgnoreCase("yes"))
+            user.setAdmin(true);
+        else
+            user.setAdmin(false);
         if (user.getId() == 0) { // if user id is null then creating user other updating user
             user.setCreatedDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
-            user.setAdmin(true);
+
+//            user.setAdmin(true);
             userService.create(user);
         } else {
             if (!userService.findById(user.getId()).equals(user)) {
-                user.setAdmin(userService.findById(user.getId()).isAdmin());
+//                user.setAdmin(userService.findById(user.getId()).isAdmin());
                 userService.edit(user);
             }
         }
         return "redirect:/" + currentPages;
     }
 
-    @RequestMapping("create")
+    @RequestMapping("/create")
     public String create(Model model) {
         model.addAttribute("user", new User());
-        return "/create";
+        model.addAttribute("isAdmin", new isAdmin());
+        return "create";
+    }
+    public static class isAdmin{
+        private String isAdmin = "";
+
+        public isAdmin() {
+        }
+
+        public String getIsAdmin() {
+            return isAdmin;
+        }
+
+        public void setIsAdmin(String isAdmin) {
+            this.isAdmin = isAdmin;
+        }
     }
 }
